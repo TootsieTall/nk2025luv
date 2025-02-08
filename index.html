@@ -21,12 +21,14 @@
             font-size: 2.5rem;
             margin-bottom: 20px;
         }
-        .gif-container {
+        .cat-container {
             margin: 20px 0;
         }
-        .gif-container img {
-            width: 150px;
-            height: auto;
+        .cat-container img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
         }
         .btn {
             font-size: 1.5rem;
@@ -38,12 +40,12 @@
             margin: 10px;
         }
         .yes-btn {
-            background-color: green;
+            background-color: #40c057;
             color: white;
-            transition: font-size 0.3s ease;
+            transition: transform 0.3s ease, font-size 0.3s ease;
         }
         .no-btn {
-            background-color: orangered;
+            background-color: #f03e3e;
             color: white;
         }
         .hidden {
@@ -56,65 +58,65 @@
             width: 100vw;
             height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            background-color: #F1BFF6;
-        }
-        .full-screen img {
-            width: 50%;
-            height: auto;
-        }
-        .expanded-yes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            font-size: 4rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            background-color: #FEA8C5;
         }
     </style>
 </head>
 <body>
-    <h1>Will you be my Valentine?</h1>
-    <div class="gif-container">
-        <img src="valentine.gif" alt="Happy Bear">
+    <div id="mainContent">
+        <h1>Will you be my Valentine?</h1>
+        <div class="cat-container">
+            <img id="catImage" src="img/cat0.jpg" alt="Cute cat">
+        </div>
+        <button class="btn yes-btn" onclick="handleYes()">Yes</button>
+        <button class="btn no-btn" onclick="handleNo()">No</button>
     </div>
-    <button class="btn yes-btn">Yes</button>
-    <button class="btn no-btn">No</button>
+
     <script>
         const yesButton = document.querySelector('.yes-btn');
         const noButton = document.querySelector('.no-btn');
-        const question = document.querySelector('h1');
-        const gifContainer = document.querySelector('.gif-container');
-        let noClickCount = 0;
-        const noTexts = [
-            "Are you really sure?",
-            "Think about it again...",
-            "You wouldn't break my heart, right?",
-            "Just one more chance!",
-            "What if I say I have chocolate?",
-            "I'm gonna cry...",
-            "Okay, now I'm actually crying... 😢"
+        const mainContent = document.getElementById('mainContent');
+        const catImage = document.getElementById('catImage');
+
+        let noCount = 0;
+        const maxNo = 5;
+
+        const messages = [
+            "No",
+            "Are you sure?",
+            "Pookie please",
+            "Don't do this to me :(",
+            "You're breaking my heart",
+            "I'm gonna cry..."
         ];
-        noButton.addEventListener('click', () => {
-            if (noClickCount < noTexts.length) {
-                noButton.textContent = noTexts[noClickCount];
-                yesButton.style.fontSize = `${1.5 + noClickCount * 5}rem`;
-                noClickCount++;
-            } else {
-                yesButton.classList.add('expanded-yes');
-                yesButton.textContent = "YES";
-                question.classList.add('hidden');
-                gifContainer.classList.add('hidden');
-                noButton.classList.add('hidden');
+
+        function handleNo() {
+            if (noCount < maxNo) {
+                noCount++;
+                // Update cat image
+                catImage.src = `img/cat${noCount}.jpg`;
+                // Update no button text
+                noButton.textContent = messages[Math.min(noCount, messages.length - 1)];
+                // Make yes button bigger
+                const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
+                yesButton.style.fontSize = `${currentSize * 1.5}px`;
+                yesButton.style.transform = `scale(${1 + noCount * 0.2})`;
             }
-        });
-        yesButton.addEventListener('click', () => {
-            document.body.innerHTML = '<div class="full-screen"><img src="dog.gif" alt="Happy Dog"></div>';
-        });
+        }
+
+        function handleYes() {
+            mainContent.innerHTML = `
+                <div class="full-screen">
+                    <h1>Yayyy!! :3</h1>
+                    <div class="cat-container">
+                        <img src="img/catyes.jpg" alt="Happy cat">
+                    </div>
+                </div>
+            `;
+        }
     </script>
 </body>
 </html>
