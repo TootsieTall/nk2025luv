@@ -49,10 +49,12 @@
             background-color: #40c057;
             color: white;
             transition: transform 0.3s ease, font-size 0.3s ease;
+            order: 1; /* Ensures Yes button comes first */
         }
         .no-btn {
             background-color: #f03e3e;
             color: white;
+            order: 2; /* Ensures No button comes second */
         }
         .hidden {
             display: none;
@@ -78,8 +80,8 @@
             <img id="catImage" src="img/cat-0.jpg" alt="Cute cat">
         </div>
         <div class="buttons-container">
-            <button class="btn no-btn" onclick="handleNo()">No</button>
             <button class="btn yes-btn" onclick="handleYes()">Yes</button>
+            <button class="btn no-btn" onclick="handleNo()">No</button>
         </div>
     </div>
 
