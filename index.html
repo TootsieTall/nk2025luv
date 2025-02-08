@@ -7,63 +7,111 @@
     <style>
         body {
             background-color: #FEA8C5;
-            margin: 0;
-            min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
             font-family: Arial, sans-serif;
-        }
-        #mainContent {
             text-align: center;
-            width: 100%;
-            max-width: 1200px;
-            padding: 20px;
         }
         h1 {
             color: #d46a85;
             font-size: 2.5rem;
             margin-bottom: 20px;
         }
+        .cat-container {
+            margin: 20px 0;
+        }
+        .cat-container img {
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            padding: 20px;
+            min-height: 300px;
+        }
         .btn {
             font-size: 1.5rem;
-            padding: 15px 30px;
+            padding: 10px 20px;
             border: none;
-            border-radius: 20px;
+            border-radius: 10px;
             cursor: pointer;
-            margin: 10px;
-            min-width: 200px;
             transition: all 0.3s ease;
+            width: 200px;
+            z-index: 1;
         }
         .yes-btn {
             background-color: #40c057;
             color: white;
+            transition: transform 0.3s ease, font-size 0.3s ease, width 0.3s ease, height 0.3s ease;
+            order: 1;
+            transform-origin: center center;
         }
         .no-btn {
             background-color: #f03e3e;
             color: white;
+            order: 2;
+            margin-top: auto;
         }
-        .cat-image {
-            width: 300px;
-            height: 300px;
-            border-radius: 10px;
-            margin: 20px auto;
-            display: block;
+        .hidden {
+            display: none;
+        }
+        .full-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #FEA8C5;
+        }
+        .final-yes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            font-size: 5rem;
+            background-color: #40c057;
+            color: white;
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
         }
     </style>
 </head>
 <body>
     <div id="mainContent">
         <h1>Will you be my Valentine?</h1>
-        <div>
+        <div class="cat-container">
+            <img id="catImage" src="img/cat-0.jpg" alt="Cute cat">
+        </div>
+        <div class="buttons-container">
             <button class="btn yes-btn" onclick="handleYes()">Yes</button>
             <button class="btn no-btn" onclick="handleNo()">No</button>
         </div>
     </div>
 
     <script>
+        const yesButton = document.querySelector('.yes-btn');
+        const noButton = document.querySelector('.no-btn');
+        const mainContent = document.getElementById('mainContent');
+        const catImage = document.getElementById('catImage');
+
         let noCount = 0;
         const maxNo = 5;
+
         const messages = [
             "No",
             "Are you sure?",
@@ -73,38 +121,31 @@
             "I'm gonna cry..."
         ];
 
-        function handleYes() {
-            document.getElementById('mainContent').innerHTML = `
-                <div style="text-align: center;">
-                    <h2>Yayyy!! :3</h2>
-                    <img src="img/cat-yes.jpg" alt="Happy cat" class="cat-image">
-                </div>
-            `;
-        }
-
         function handleNo() {
             if (noCount < maxNo) {
                 noCount++;
-                document.querySelector('img').src = `img/cat-${noCount}.jpg`;
-                document.querySelector('.no-btn').textContent = messages[noCount];
+                catImage.src = `img/cat-${noCount}.jpg`;
+                noButton.textContent = messages[Math.min(noCount, messages.length - 1)];
                 
                 if (noCount === maxNo) {
-                    document.querySelector('.no-btn').style.display = 'none';
-                    const yesBtn = document.querySelector('.yes-btn');
-                    yesBtn.style.fontSize = '5rem';
-                    yesBtn.style.width = '100vw';
-                    yesBtn.style.height = '100vh';
-                    yesBtn.style.position = 'fixed';
-                    yesBtn.style.top = '0';
-                    yesBtn.style.left = '0';
-                    yesBtn.style.margin = '0';
-                    yesBtn.style.borderRadius = '0';
+                    noButton.style.display = 'none';
+                    yesButton.className = 'final-yes';
                 } else {
-                    const yesBtn = document.querySelector('.yes-btn');
-                    yesBtn.style.transform = `scale(${1 + (noCount * 0.3)})`;
-                    yesBtn.style.fontSize = `${1.5 + (noCount * 0.3)}rem`;
+                    yesButton.style.transform = `scale(${1 + (noCount * 0.3)})`;
+                    yesButton.style.fontSize = `${1.5 + (noCount * 0.3)}rem`;
                 }
             }
+        }
+
+        function handleYes() {
+            mainContent.innerHTML = `
+                <div class="full-screen">
+                    <h1>Yayyy!! :3</h1>
+                    <div class="cat-container">
+                        <img src="img/cat-yes.jpg" alt="Happy cat">
+                    </div>
+                </div>
+            `;
         }
     </script>
 </body>
