@@ -102,15 +102,14 @@
             <button class="btn no-btn" onclick="handleNo()">No</button>
         </div>
     </div>
-
     <script>
         const yesButton = document.querySelector('.yes-btn');
         const noButton = document.querySelector('.no-btn');
         const mainContent = document.getElementById('mainContent');
         const catImage = document.getElementById('catImage');
-
         let noCount = 0;
         const maxNo = 5;
+// Previous code remains the same until handleNo function
 
         const messages = [
             "No",
@@ -120,7 +119,6 @@
             "You're breaking my heart",
             "I'm gonna cry..."
         ];
-
         function handleNo() {
             if (noCount < maxNo) {
                 noCount++;
@@ -130,13 +128,13 @@
                 if (noCount === maxNo) {
                     noButton.style.display = 'none';
                     yesButton.className = 'final-yes';
+                    yesButton.style.fontSize = '5rem';
                 } else {
                     yesButton.style.transform = `scale(${1 + (noCount * 0.3)})`;
                     yesButton.style.fontSize = `${1.5 + (noCount * 0.3)}rem`;
                 }
             }
         }
-
         function handleYes() {
             mainContent.innerHTML = `
                 <div class="full-screen">
@@ -150,3 +148,21 @@
     </script>
 </body>
 </html>
+function handleNo() {
+    if (noCount < maxNo) {
+        noCount++;
+        catImage.src = `img/cat-${noCount}.jpg`;
+        noButton.textContent = messages[Math.min(noCount, messages.length - 1)];
+        
+        if (noCount === maxNo) {
+            noButton.style.display = 'none';
+            yesButton.className = 'final-yes';
+            yesButton.style.fontSize = '5rem';
+            yesButton.style.width = '100vw';
+            yesButton.style.height = '100vh';
+        } else {
+            yesButton.style.transform = `scale(${1 + (noCount * 0.3)})`;
+            yesButton.style.fontSize = `${1.5 + (noCount * 0.3)}rem`;
+        }
+    }
+}
