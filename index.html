@@ -33,8 +33,10 @@
         .buttons-container {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 20px;
             align-items: center;
+            padding: 20px;
+            min-height: 300px; /* Reserve space for button growth */
         }
         .btn {
             font-size: 1.5rem;
@@ -43,18 +45,21 @@
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
-            width: 200px; /* Fixed width for buttons */
+            width: 200px;
+            z-index: 1; /* Ensure buttons stay above other elements */
         }
         .yes-btn {
             background-color: #40c057;
             color: white;
             transition: transform 0.3s ease, font-size 0.3s ease;
-            order: 1; /* Ensures Yes button comes first */
+            order: 1;
+            transform-origin: center center;
         }
         .no-btn {
             background-color: #f03e3e;
             color: white;
-            order: 2; /* Ensures No button comes second */
+            order: 2;
+            margin-top: auto; /* Push to bottom of container */
         }
         .hidden {
             display: none;
@@ -110,10 +115,9 @@
                 catImage.src = `img/cat-${noCount}.jpg`;
                 // Update no button text
                 noButton.textContent = messages[Math.min(noCount, messages.length - 1)];
-                // Make yes button bigger
-                const currentSize = parseFloat(window.getComputedStyle(yesButton).fontSize);
-                yesButton.style.fontSize = `${currentSize * 1.5}px`;
-                yesButton.style.transform = `scale(${1 + noCount * 0.2})`;
+                // Make yes button bigger with controlled growth
+                yesButton.style.transform = `scale(${1 + (noCount * 0.3)})`;
+                yesButton.style.fontSize = `${1.5 + (noCount * 0.3)}rem`;
             }
         }
 
