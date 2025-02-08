@@ -36,7 +36,7 @@
             gap: 20px;
             align-items: center;
             padding: 20px;
-            min-height: 300px; /* Reserve space for button growth */
+            min-height: 300px;
         }
         .btn {
             font-size: 1.5rem;
@@ -46,12 +46,12 @@
             cursor: pointer;
             transition: all 0.3s ease;
             width: 200px;
-            z-index: 1; /* Ensure buttons stay above other elements */
+            z-index: 1;
         }
         .yes-btn {
             background-color: #40c057;
             color: white;
-            transition: transform 0.3s ease, font-size 0.3s ease;
+            transition: transform 0.3s ease, font-size 0.3s ease, width 0.3s ease, height 0.3s ease;
             order: 1;
             transform-origin: center center;
         }
@@ -59,7 +59,7 @@
             background-color: #f03e3e;
             color: white;
             order: 2;
-            margin-top: auto; /* Push to bottom of container */
+            margin-top: auto;
         }
         .hidden {
             display: none;
@@ -75,6 +75,19 @@
             align-items: center;
             justify-content: center;
             background-color: #FEA8C5;
+        }
+        .final-yes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            font-size: 5rem;
+            background-color: #40c057;
+            color: white;
+            border: none;
+            cursor: pointer;
+            z-index: 1000;
         }
     </style>
 </head>
@@ -111,13 +124,17 @@
         function handleNo() {
             if (noCount < maxNo) {
                 noCount++;
-                // Update cat image with hyphenated filename
                 catImage.src = `img/cat-${noCount}.jpg`;
-                // Update no button text
                 noButton.textContent = messages[Math.min(noCount, messages.length - 1)];
-                // Make yes button bigger with controlled growth
-                yesButton.style.transform = `scale(${1 + (noCount * 0.3)})`;
-                yesButton.style.fontSize = `${1.5 + (noCount * 0.3)}rem`;
+                
+                if (noCount === maxNo) {
+                    noButton.style.display = 'none';
+                    yesButton.className = 'final-yes';
+                    yesButton.style.fontSize = '5rem';
+                } else {
+                    yesButton.style.transform = `scale(${1 + (noCount * 0.3)})`;
+                    yesButton.style.fontSize = `${1.5 + (noCount * 0.3)}rem`;
+                }
             }
         }
 
