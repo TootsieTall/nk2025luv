@@ -50,73 +50,6 @@
             margin: 20px auto;
             display: block;
         }
-        .success-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 30px;
-        }
-        .envelope-wrapper {
-            margin-top: 30px;
-        }
-        #envelope {
-            position: relative;
-            height: 180px;
-            width: 280px;
-            background-color: #FF6863;
-            border-radius: 6px;
-            cursor: pointer;
-            margin: 0 auto;
-        }
-        .front {
-            position: absolute;
-            width: 0;
-            height: 0;
-        }
-        .flap {
-            border-top: 98px solid #FF6863;
-            border-left: 140px solid transparent;
-            border-right: 140px solid transparent;
-            border-bottom: 82px solid transparent;
-            transform-origin: top;
-            z-index: 3;
-        }
-        .pocket {
-            border-left: 140px solid #FF8BA0;
-            border-right: 140px solid #FF8BA0;
-            border-bottom: 90px solid #FFA8B5;
-            border-top: 90px solid transparent;
-        }
-        .letter {
-            position: relative;
-            background-color: white;
-            width: 90%;
-            height: 95%;
-            margin: 0 auto;
-            border-radius: 10px;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .open .flap {
-            transform: rotatex(180deg);
-            transition: transform 0.4s ease;
-            z-index: 1;
-        }
-        .close .flap {
-            transform: rotatex(0deg);
-            transition: transform 0.4s 0.6s ease;
-            z-index: 5;
-        }
-        .open .letter {
-            transform: translatey(-80px);
-            transition: transform 0.4s 0.6s ease;
-            z-index: 2;
-        }
-        .close .letter {
-            transform: translatey(0);
-            transition: transform 0.4s ease;
-            z-index: 1;
-        }
     </style>
 </head>
 <body>
@@ -142,28 +75,11 @@
 
         function handleYes() {
             document.getElementById('mainContent').innerHTML = `
-                <div class="success-section">
+                <div style="text-align: center;">
                     <h2>Yayyy!! :3</h2>
                     <img src="img/cat-yes.jpg" alt="Happy cat" class="cat-image">
-                    <div class="envelope-wrapper">
-                        <div id="envelope" class="close">
-                            <div class="front flap"></div>
-                            <div class="front pocket"></div>
-                            <div class="letter">
-                                <p>I'm vvv lucky to have you in my life :D</p>
-                                <p>Can't wait to celebrate valentine's wt you!</p>
-                                <p>I love you more than you'll ever know!</p>
-                                <p>- your loving bf</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             `;
-
-            document.getElementById('envelope').addEventListener('click', function() {
-                this.classList.toggle('open');
-                this.classList.toggle('close');
-            });
         }
 
         function handleNo() {
