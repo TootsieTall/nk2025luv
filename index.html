@@ -7,52 +7,50 @@
     <style>
         body {
             background-color: #FEA8C5;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        #mainContent {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            text-align: center;
+            padding: 20px;
         }
-        .main-container {
+        .success-container {
             display: flex;
-            justify-content: space-around;
+            flex-direction: column;
             align-items: center;
-            width: 100%;
+            gap: 20px;
             max-width: 1200px;
+            margin: 0 auto;
+        }
+        .cat-section {
+            text-align: center;
         }
         .cat-section img {
             width: 300px;
             height: 300px;
-            object-fit: cover;
             border-radius: 10px;
         }
-        .envelope-section {
-            margin-left: 40px;
+        h1, h2 {
+            color: #d46a85;
         }
         .envelope-wrapper {
-            height: 380px;
+            margin-top: 30px;
         }
         #envelope {
             position: relative;
             height: 180px;
             width: 280px;
-            border-bottom-left-radius: 6px;
-            border-bottom-right-radius: 6px;
-            margin-left: auto;
-            margin-right: auto;
-            top: 50%;
             background-color: #FF6863;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            border-radius: 6px;
             cursor: pointer;
+            margin: 0 auto;
         }
         .front {
             position: absolute;
             width: 0;
             height: 0;
-            z-index: 3;
         }
         .flap {
             border-top: 98px solid #FF6863;
@@ -60,57 +58,48 @@
             border-right: 140px solid transparent;
             border-bottom: 82px solid transparent;
             transform-origin: top;
+            z-index: 3;
         }
         .pocket {
             border-left: 140px solid #FF8BA0;
             border-right: 140px solid #FF8BA0;
             border-bottom: 90px solid #FFA8B5;
             border-top: 90px solid transparent;
-            border-bottom-left-radius: 6px;
-            border-bottom-right-radius: 6px;
         }
         .letter {
             position: relative;
             background-color: white;
             width: 90%;
             height: 95%;
-            top: 0%;
+            margin: 0 auto;
             border-radius: 10px;
-            box-shadow: 0 2px 26px rgba(0, 0, 0, .12);
-            margin-left: auto;
-            margin-right: auto;
             padding: 20px;
             box-sizing: border-box;
         }
         .words {
-            font-family: 'Caveat', sans-serif;
+            font-family: Arial, sans-serif;
             color: black;
             margin: 10px 0;
         }
         .open .flap {
             transform: rotatex(180deg);
-            transition: transform 0.4s ease, z-index 0.6s;
+            transition: transform 0.4s ease;
             z-index: 1;
         }
         .close .flap {
             transform: rotatex(0deg);
-            transition: transform 0.4s 0.6s ease, z-index 1s;
+            transition: transform 0.4s 0.6s ease;
             z-index: 5;
         }
         .open .letter {
             transform: translatey(-80px);
-            transition: transform 0.4s 0.6s ease, z-index 0.6s;
+            transition: transform 0.4s 0.6s ease;
             z-index: 2;
         }
         .close .letter {
-            transform: translatey(0deg);
-            transition: transform 0.4s ease, z-index 1s;
+            transform: translatey(0);
+            transition: transform 0.4s ease;
             z-index: 1;
-        }
-        h1 {
-            color: #d46a85;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
         }
         .btn {
             font-size: 1.5rem;
@@ -118,9 +107,8 @@
             border: none;
             border-radius: 10px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            margin: 10px;
             width: 200px;
-            z-index: 1;
         }
         .yes-btn {
             background-color: #40c057;
@@ -129,60 +117,59 @@
         .no-btn {
             background-color: #f03e3e;
             color: white;
-            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <div id="mainContent">
         <h1>Will you be my Valentine?</h1>
-        <div class="buttons-container">
-            <button class="btn yes-btn" onclick="handleYes()">Yes</button>
-            <button class="btn no-btn" onclick="handleNo()">No</button>
-        </div>
+        <button class="btn yes-btn" onclick="handleYes()">Yes</button>
+        <button class="btn no-btn" onclick="handleNo()">No</button>
     </div>
 
     <script>
         function handleYes() {
             document.getElementById('mainContent').innerHTML = `
-                <div class="main-container">
+                <div class="success-container">
                     <div class="cat-section">
-                        <img src="img/cat-yes.jpg" alt="Happy cat">
                         <h2>Yayyy!! :3</h2>
+                        <img src="img/cat-yes.jpg" alt="Happy cat">
                     </div>
-                    <div class="envelope-section">
-                        <div class="envelope-wrapper">
-                            <div id="envelope" class="close">
-                                <div class="front flap"></div>
-                                <div class="front pocket"></div>
-                                <div class="letter">
-                                    <p class="words">I'm vvv lucky to have you in my life :D</p>
-                                    <p class="words">Can't wait to celebrate valentine's wt you!</p>
-                                    <p class="words">I love you more than you'll ever know!</p>
-                                    <p class="words">- your loving bf</p>
-                                </div>
+                    <div class="envelope-wrapper">
+                        <div id="envelope" class="close">
+                            <div class="front flap"></div>
+                            <div class="front pocket"></div>
+                            <div class="letter">
+                                <p class="words">I'm vvv lucky to have you in my life :D</p>
+                                <p class="words">Can't wait to celebrate valentine's wt you!</p>
+                                <p class="words">I love you more than you'll ever know!</p>
+                                <p class="words">- your loving bf</p>
                             </div>
                         </div>
                     </div>
                 </div>
             `;
 
-            // Add envelope click handler
             document.getElementById('envelope').addEventListener('click', function() {
                 this.classList.toggle('open');
                 this.classList.toggle('close');
             });
         }
 
+        let noCount = 0;
         function handleNo() {
             noCount++;
-            document.getElementById('mainContent').innerHTML = `
-                <img src="img/cat-sad.jpg" alt="Sad cat">
-                <h2>I'm gonna cry...</h2>
-            `;
+            if (noCount === 5) {
+                const yesBtn = document.querySelector('.yes-btn');
+                yesBtn.style.fontSize = '5rem';
+                yesBtn.style.width = '100vw';
+                yesBtn.style.height = '100vh';
+                yesBtn.style.position = 'fixed';
+                yesBtn.style.top = '0';
+                yesBtn.style.left = '0';
+                document.querySelector('.no-btn').style.display = 'none';
+            }
         }
-
-        let noCount = 0;
     </script>
 </body>
 </html>
