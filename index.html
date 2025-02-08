@@ -30,6 +30,12 @@
             object-fit: cover;
             border-radius: 10px;
         }
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
         .btn {
             font-size: 1.5rem;
             padding: 10px 20px;
@@ -37,7 +43,7 @@
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin: 10px;
+            width: 200px; /* Fixed width for buttons */
         }
         .yes-btn {
             background-color: #40c057;
@@ -71,8 +77,10 @@
         <div class="cat-container">
             <img id="catImage" src="img/cat-0.jpg" alt="Cute cat">
         </div>
-        <button class="btn yes-btn" onclick="handleYes()">Yes</button>
-        <button class="btn no-btn" onclick="handleNo()">No</button>
+        <div class="buttons-container">
+            <button class="btn yes-btn" onclick="handleYes()">Yes</button>
+            <button class="btn no-btn" onclick="handleNo()">No</button>
+        </div>
     </div>
 
     <script>
