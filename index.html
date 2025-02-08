@@ -61,21 +61,6 @@
             order: 2;
             margin-top: auto;
         }
-        .hidden {
-            display: none;
-        }
-        .full-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: #FEA8C5;
-        }
         .final-yes {
             position: fixed;
             top: 0;
@@ -88,6 +73,83 @@
             border: none;
             cursor: pointer;
             z-index: 1000;
+        }
+        /* Envelope Styles */
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        .envelope-wrapper {
+            height: 380px;
+        }
+        #envelope {
+            position: relative;
+            height: 180px;
+            width: 280px;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #FF6863;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
+        .front {
+            position: absolute;
+            width: 0;
+            height: 0;
+            z-index: 3;
+        }
+        .flap {
+            border-top: 98px solid #FF6863;
+            border-left: 140px solid transparent;
+            border-right: 140px solid transparent;
+            border-bottom: 82px solid transparent;
+            transform-origin: top;
+        }
+        .pocket {
+            border-left: 140px solid #FF8BA0;
+            border-right: 140px solid #FF8BA0;
+            border-bottom: 90px solid #FFA8B5;
+            border-top: 90px solid transparent;
+            border-bottom-left-radius: 6px;
+            border-bottom-right-radius: 6px;
+        }
+        .letter {
+            position: relative;
+            background-color: white;
+            width: 90%;
+            height: 95%;
+            top: 0%;
+            border-radius: 10px;
+            box-shadow: 0 2px 26px rgba(0, 0, 0, .12);
+            margin-left: auto;
+            margin-right: auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .open .flap {
+            transform: rotatex(180deg);
+            transition: transform 0.4s ease, z-index 0.6s;
+            z-index: 1;
+        }
+        .close .flap {
+            transform: rotatex(0deg);
+            transition: transform 0.4s 0.6s ease, z-index 1s;
+            z-index: 5;
+        }
+        .open .letter {
+            transform: translatey(-80px);
+            transition: transform 0.4s 0.6s ease, z-index 0.6s;
+            z-index: 2;
+        }
+        .close .letter {
+            transform: translatey(0deg);
+            transition: transform 0.4s ease, z-index 1s;
+            z-index: 1;
         }
     </style>
 </head>
@@ -109,8 +171,6 @@
         const catImage = document.getElementById('catImage');
         let noCount = 0;
         const maxNo = 5;
-// Previous code remains the same until handleNo function
-
         const messages = [
             "No",
             "Are you sure?",
@@ -119,6 +179,7 @@
             "You're breaking my heart",
             "I'm gonna cry..."
         ];
+        
         function handleNo() {
             if (noCount < maxNo) {
                 noCount++;
@@ -135,34 +196,34 @@
                 }
             }
         }
+        
         function handleYes() {
             mainContent.innerHTML = `
-                <div class="full-screen">
-                    <h1>Yayyy!! :3</h1>
-                    <div class="cat-container">
-                        <img src="img/cat-yes.jpg" alt="Happy cat">
+                <div class="main-container">
+                    <div>
+                        <h2>Yayyy!! :3</h2>
+                        <img src="img/cat-yes.jpg" alt="Happy cat" class="cat-container">
+                    </div>
+                    <div class="envelope-wrapper">
+                        <div id="envelope" class="close">
+                            <div class="front flap"></div>
+                            <div class="front pocket"></div>
+                            <div class="letter">
+                                <p>I'm vvv lucky to have you in my life :D</p>
+                                <p>Can't wait to celebrate valentine's wt you!</p>
+                                <p>I love you more than you'll ever know!</p>
+                                <p>- your loving bf</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             `;
+            
+            document.getElementById('envelope').addEventListener('click', function() {
+                this.classList.toggle('open');
+                this.classList.toggle('close');
+            });
         }
     </script>
 </body>
 </html>
-function handleNo() {
-    if (noCount < maxNo) {
-        noCount++;
-        catImage.src = `img/cat-${noCount}.jpg`;
-        noButton.textContent = messages[Math.min(noCount, messages.length - 1)];
-        
-        if (noCount === maxNo) {
-            noButton.style.display = 'none';
-            yesButton.className = 'final-yes';
-            yesButton.style.fontSize = '5rem';
-            yesButton.style.width = '100vw';
-            yesButton.style.height = '100vh';
-        } else {
-            yesButton.style.transform = `scale(${1 + (noCount * 0.3)})`;
-            yesButton.style.fontSize = `${1.5 + (noCount * 0.3)}rem`;
-        }
-    }
-}
