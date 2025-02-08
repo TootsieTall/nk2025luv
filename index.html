@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Valentine's Day</title>
     <style>
+        /* Previous styles remain the same until envelope styles */
         body {
             background-color: #FEA8C5;
             display: flex;
@@ -74,7 +75,6 @@
             cursor: pointer;
             z-index: 1000;
         }
-        /* Envelope Styles */
         .main-container {
             display: flex;
             justify-content: center;
@@ -83,12 +83,12 @@
             margin-top: 20px;
         }
         .envelope-wrapper {
-            height: 380px;
+            height: 500px;
         }
         #envelope {
             position: relative;
-            height: 180px;
-            width: 280px;
+            height: 300px;
+            width: 500px;
             border-bottom-left-radius: 6px;
             border-bottom-right-radius: 6px;
             margin-left: auto;
@@ -104,17 +104,17 @@
             z-index: 3;
         }
         .flap {
-            border-top: 98px solid #FF6863;
-            border-left: 140px solid transparent;
-            border-right: 140px solid transparent;
-            border-bottom: 82px solid transparent;
+            border-top: 160px solid #FF6863;
+            border-left: 250px solid transparent;
+            border-right: 250px solid transparent;
+            border-bottom: 140px solid transparent;
             transform-origin: top;
         }
         .pocket {
-            border-left: 140px solid #FF8BA0;
-            border-right: 140px solid #FF8BA0;
-            border-bottom: 90px solid #FFA8B5;
-            border-top: 90px solid transparent;
+            border-left: 250px solid #FF8BA0;
+            border-right: 250px solid #FF8BA0;
+            border-bottom: 150px solid #FFA8B5;
+            border-top: 150px solid transparent;
             border-bottom-left-radius: 6px;
             border-bottom-right-radius: 6px;
         }
@@ -130,6 +130,8 @@
             margin-right: auto;
             padding: 20px;
             box-sizing: border-box;
+            font-size: 1.2em;
+            line-height: 1.5;
         }
         .open .flap {
             transform: rotatex(180deg);
@@ -142,7 +144,7 @@
             z-index: 5;
         }
         .open .letter {
-            transform: translatey(-80px);
+            transform: translatey(-150px);
             transition: transform 0.4s 0.6s ease, z-index 0.6s;
             z-index: 2;
         }
